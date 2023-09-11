@@ -55,7 +55,7 @@ class DialogCalendar:
         inline_kb.insert(InlineKeyboardButton(" ", callback_data=ignore_callback))
         # two rows with 6 months buttons
         inline_kb.row()
-        for month in self.months[0:6]:
+        for month in self.months[:6]:
             inline_kb.insert(InlineKeyboardButton(
                 month,
                 callback_data=calendar_callback.new("SET-MONTH", year, self.months.index(month) + 1, -1)

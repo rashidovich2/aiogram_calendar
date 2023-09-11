@@ -28,7 +28,7 @@ async def test_start_calendar():
 
     assert type(kb[0][1]) == InlineKeyboardButton
     now = datetime.now()
-    assert kb[0][1]['text'] == f'{calendar.month_name[now.month]} {str(now.year)}'
+    assert kb[0][1]['text'] == f'{calendar.month_name[now.month]} {now.year}'
     assert type(kb[0][1]['callback_data']) == str
 
 

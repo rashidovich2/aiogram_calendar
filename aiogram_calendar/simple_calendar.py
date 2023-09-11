@@ -31,10 +31,12 @@ class SimpleCalendar:
             "<<",
             callback_data=calendar_callback.new("PREV-YEAR", year, month, 1)
         ))
-        inline_kb.insert(InlineKeyboardButton(
-            f'{calendar.month_name[month]} {str(year)}',
-            callback_data=ignore_callback
-        ))
+        inline_kb.insert(
+            InlineKeyboardButton(
+                f'{calendar.month_name[month]} {year}',
+                callback_data=ignore_callback,
+            )
+        )
         inline_kb.insert(InlineKeyboardButton(
             ">>",
             callback_data=calendar_callback.new("NEXT-YEAR", year, month, 1)
@@ -89,11 +91,15 @@ class SimpleCalendar:
         # user navigates to previous year, editing message with new calendar
         if data['act'] == "PREV-YEAR":
             prev_date = datetime(int(data['year']) - 1, int(data['month']), 1)
-            await query.message.edit_reply_markup(await self.start_calendar(int(prev_date.year), int(prev_date.month)))
+            await query.message.edit_reply_markup(
+                await self.start_calendar(prev_date.year, prev_date.month)
+            )
         # user navigates to next year, editing message with new calendar
         if data['act'] == "NEXT-YEAR":
             next_date = datetime(int(data['year']) + 1, int(data['month']), 1)
-            await query.message.edit_reply_markup(await self.start_calendar(int(next_date.year), int(next_date.month)))
+            await query.message.edit_reply_markup(
+                await self.start_calendar(next_date.year, next_date.month)
+            )
         # user navigates to previous month, editing message with new calendar
         if data['act'] == "PREV-MONTH":
             prev_date = temp_date - timedelta(days=1)
